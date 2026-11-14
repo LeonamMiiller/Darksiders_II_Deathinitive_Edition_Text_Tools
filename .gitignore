@@ -1,0 +1,15 @@
+# Rust
+target/
+**/target/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Segredos locais - nunca commitar credenciais
+.env
+.env.*
+
+# Logs
+*.log

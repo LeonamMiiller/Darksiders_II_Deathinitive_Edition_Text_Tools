@@ -1,0 +1,28 @@
+[package]
+name = "loc-tool"
+version = "0.1.0"
+edition = "2021"
+description = "Darksiders II Deathinitive Edition LOC Tool [PC] — port Rust (CLI + GUI)"
+authors = ["Port to Rust based on the Delphi tool by Delutto"]
+
+# Feature `cli` (padrão) compila apenas o modo linha de comando.
+# Feature `gui` adiciona a interface Dioxus (requer libs de sistema: webkit2gtk).
+[features]
+default = ["cli"]
+cli = []
+gui = ["dep:dioxus", "dep:rfd", "dep:tokio"]
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+dioxus = { version = "0.7", features = ["desktop"], optional = true }
+rfd = { version = "0.15", optional = true }
+# `sync` (mpsc + Mutex) basta para o canal de progresso da GUI.
+tokio = { version = "1", features = ["sync"], optional = true }
+
+[dev-dependencies]
+# Apenas para os testes do canal da GUI (`cargo test --features gui`).
+tokio = { version = "1", features = ["rt", "macros"] }
+
+[[bin]]
+name = "loc"
+path = "src/main.rs"
